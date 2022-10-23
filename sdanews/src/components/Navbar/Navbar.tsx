@@ -11,10 +11,12 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import {Link} from "react-router-dom";
+import { NavbarProps } from '../../helpers/interfaces';
 
 const pages = ['Home', 'Search'];
 
-const Navbar = () => {
+const Navbar:React.FC<NavbarProps> = ({loggedIn}) => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -37,23 +39,6 @@ const Navbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography                       // LOGO PRZY PEŁNEJ STRONIE
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'Roboto',
-              fontWeight: 200,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            SDA NEWS
-          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -84,12 +69,17 @@ const Navbar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              <Link to="/" style={{textDecoration:"none", color:"black"}}>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Home</Typography>
                 </MenuItem>
-              ))}
-            </Menu>
+              </Link>
+              <Link to="/search" style={{textDecoration:"none", color:"black"}}>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Search</Typography>
+                </MenuItem>
+              </Link>
+            </Menu> 
           </Box>
           
           <Typography
@@ -98,7 +88,6 @@ const Navbar = () => {
             component="a"
             href=""
             sx={{
-              mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'Roboto',
@@ -111,25 +100,56 @@ const Navbar = () => {
             SDA NEWS
           </Typography>
           
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (                      // responsywność -> menu dla webPage
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}> {/*menu dla webPage*/}
+            <Link to="/" style={{textDecoration:"none"}}>
               <Button
-                key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
+              >Home
               </Button>
-            ))}
+            </Link>
+            <Link to="/search" style={{textDecoration:"none"}}>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >Search
+              </Button>
+            </Link>
           </Box>
+          
+          <Typography                       // LOGO PRZY PEŁNEJ STRONIE
+            variant="h5"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              flexGrow:1,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'Roboto',
+              fontWeight: 200,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            SDA NEWS
+          </Typography>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            
+              <Link 
+                to={loggedIn ? "/user" : "/login"} 
+                style={{textDecoration:"none"}}>
+                { loggedIn && 
+                  (<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  </IconButton>)
+                }
+                { !loggedIn &&
+                  <Button sx={{my:2, color:"white", display:"block"}}
+                  >Log in</Button>
+                }
+
+              </Link>
           </Box>
         </Toolbar>
       </Container>
@@ -138,3 +158,11 @@ const Navbar = () => {
 }
 
 export default Navbar
+
+// RENDEROWANIE WARUNKOWE 
+// TYP !
+// w zależności od warunku wyświetlamy lub nie wyświetlamy element A
+// {jakasWartosc===drugaWartosc && <p>123</p>}
+// TYP 2 
+// w zależności od warunku renderujemy element A lub element B
+// jakasWartosc===drugaWartosc ? <p>123</p> : <p>abc</p>

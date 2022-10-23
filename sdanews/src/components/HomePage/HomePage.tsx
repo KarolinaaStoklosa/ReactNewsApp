@@ -44,9 +44,9 @@ const HomePage = () => {
             >
             Today's hottest news:
           </Typography>
-          {/* <Article art={todaysArticles[2]} key={1} />  */}
           <List sx={{width:'100%', alignContent:'center'}}>
-            {todaysArticles.length !==0 && todaysArticles.map((art:ArticleObj) => {
+            {todaysArticles.length !==0 && 
+            todaysArticles.map((art:ArticleObj) => {
                 return <Article art={art} key={art.title}/>
             })}
 
