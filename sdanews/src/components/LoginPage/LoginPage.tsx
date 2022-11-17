@@ -9,7 +9,7 @@ const LoginPage = () => {
             <LoginForm />
             <Typography
                 variant="h6"
-                sx={{fontWeight:"100", textAlign:"center", marginBottom:".5rem"}}
+                sx={{fontWeight:"100", textAlign:"center", my:".5rem"}}
             >Don't have an account yet? Register now!</Typography>
             <Link to="/register" style={{textDecoration:"none"}}>
                 <Button

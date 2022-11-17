@@ -6,7 +6,9 @@ import RegisterForm from './components/RegisterForm/RegisterForm';
 import LoginPage from './components/LoginPage/LoginPage';
 import { onAuthStateChanged } from "firebase/auth";
 import {auth} from "./helpers/firebaseConfig";
-
+import UserPage from './components/UserPage/UserPage';
+import SearchPage from './components/SearchPage/SearchPage';
+import { authContext } from './helpers/authContext'
 // Rozrózniamy 2 grupy elementów:
 //1) 
 
@@ -24,12 +26,16 @@ function App() {
   return (
   <div className="App">
     <BrowserRouter>
-      <Navbar loggedIn={loggedIn}/>
-      <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/register' element={<RegisterForm />} />
-        <Route path='/login' element={<LoginPage />} />
-      </Routes>
+      <authContext.Provider value={loggedIn}>
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/register' element={<RegisterForm />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/user' element={<UserPage />} />
+          <Route path='/search' element={<SearchPage />} />
+        </Routes>
+      </authContext.Provider>
     </BrowserRouter>
   </div>
 );

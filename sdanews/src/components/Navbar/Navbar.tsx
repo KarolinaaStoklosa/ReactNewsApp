@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState, useContext} from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,10 +13,15 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from "react-router-dom";
 import { NavbarProps } from '../../helpers/interfaces';
-
+import { auth, storage } from "../../helpers/firebaseConfig";
+import { ref, getDownloadURL} from "firebase/storage"
+import { authContext } from '../../helpers/authContext';
 const pages = ['Home', 'Search'];
 
-const Navbar:React.FC<NavbarProps> = ({loggedIn}) => {
+const Navbar= () => {
+
+  const loggedIn =  useContext(authContext);
+
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -34,6 +39,20 @@ const Navbar:React.FC<NavbarProps> = ({loggedIn}) => {
 //   const handleCloseUserMenu = () => {
 //     setAnchorElUser(null);
 //   };
+
+  const [profilePhoto, setProfilePhoto] = useState<string|undefined>('/');
+
+  useEffect(()=> {
+    if (loggedIn && auth.currentUser) {
+    const storageRef = ref(storage, `/users/${auth.currentUser.uid}/images`);
+
+    getDownloadURL(storageRef)
+    .then((url) => {
+      setProfilePhoto(url)
+      console.log("Profile photo set")})
+    .catch((err) => setProfilePhoto(undefined));
+    }
+  }, [loggedIn])
 
   return (
     <AppBar position="static">
@@ -141,7 +160,7 @@ const Navbar:React.FC<NavbarProps> = ({loggedIn}) => {
                 style={{textDecoration:"none"}}>
                 { loggedIn && 
                   (<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="Remy Sharp" src={profilePhoto} />
                   </IconButton>)
                 }
                 { !loggedIn &&
@@ -166,3 +185,13 @@ export default Navbar
 // TYP 2 
 // w zależności od warunku renderujemy element A lub element B
 // jakasWartosc===drugaWartosc ? <p>123</p> : <p>abc</p>
+
+
+// Stwórz stan profilePhoto, otypuj got tak żeby móc przechowywać string lub undefined, wartość początkowa '/'
+// 2. Wywołaj useEffect, bd działać tylko na 1szym renderze
+// w uE:
+// 3. Stwóz referencję do storage (taka sama jak w poprzednim zad w ProfilePhotoFOrm)
+// 4. Wywołaj getDownloadUREL, funkcje przyjmuje jako argument referencję z pkt 3 i importuje się ją z firebase/storage
+// 5. Na getDownloadURL podepnij then i wywołaj w nim funkcję aktualizującą stan profilePhoto (pkt1) i wrzuć do tego stanu to, co zostalo ci zwrócone przez getDownoloadURL
+// 6. Dopisz catch
+// 7. W avatarze (l144) ustaw src na stan profilePhoto

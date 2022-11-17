@@ -21,3 +21,18 @@ export interface RegisterFormData extends LoginFormData {
 export interface NavbarProps {
     loggedIn: boolean;
 }
+export interface UserPageProps {
+    loggedIn: boolean;
+}
+
+export interface ProfilePhotoFormData {
+    profilePhoto: FileList;
+}
+
+export interface SearchFormProps {
+    setKeyword: (value:string)=>void;
+
+}
+export interface SearchFormData {
+    keyword: string;
+}
