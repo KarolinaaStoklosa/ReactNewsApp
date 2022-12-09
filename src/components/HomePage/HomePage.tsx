@@ -6,22 +6,14 @@ import Article from '../Article/Article';
 import { ArticleObj } from '../../helpers/interfaces';
 
 const HomePage = () => {
-    // todays articles
     const [todaysArticles, setTodaysArticles] = useState([]);
-
-    // tu ściągane są dane z api
-
     useEffect (()=>{
         const today = new Date();
-        const day = today.getDate(); // getDay zwraca dzień tygodna(sobota), getToday => dzień miesiąca (22)
-        const month = today.getMonth(); // getMonth() => numer miesiąca ale miesiące indeksowane są od 0
+        const day = today.getDate();
+        const month = today.getMonth(); 
         const year = today.getFullYear();
 
-        const date = `${year}-${month<9 ? `0${month+1}` : month+1}-${day-1}` //day-1 bo inna strefa czasowa 
-        // potrzebujemy datę 2022-10-22
-
-        // axios vs fetch, React Query
-
+        const date = `${year}-${month<9 ? `0${month+1}` : month+1}-${day-1}`
         axios.get(`
         https://newsapi.org/v2/everything?q=world&from=${date}&language=en&sortBy=popularity&apiKey=${API_KEY}`
         )
@@ -30,10 +22,7 @@ const HomePage = () => {
         })
         .catch((err) => console.error(err.message));
 
-        // return () { }
-
     }, [])
-
 
     return (
         <>

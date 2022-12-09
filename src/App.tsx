@@ -9,8 +9,6 @@ import {auth} from "./helpers/firebaseConfig";
 import UserPage from './components/UserPage/UserPage';
 import SearchPage from './components/SearchPage/SearchPage';
 import { authContext } from './helpers/authContext'
-// Rozrózniamy 2 grupy elementów:
-//1) 
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);

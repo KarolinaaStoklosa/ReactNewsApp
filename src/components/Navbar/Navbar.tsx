@@ -36,10 +36,6 @@ const Navbar= () => {
     setAnchorElNav(null);
   };
 
-//   const handleCloseUserMenu = () => {
-//     setAnchorElUser(null);
-//   };
-
   const [profilePhoto, setProfilePhoto] = useState<string|undefined>('/');
 
   useEffect(()=> {
@@ -136,7 +132,7 @@ const Navbar= () => {
             </Link>
           </Box>
           
-          <Typography                       // LOGO PRZY PEŁNEJ STRONIE
+          <Typography                    
             variant="h5"
             noWrap
             component="a"
@@ -177,21 +173,3 @@ const Navbar= () => {
 }
 
 export default Navbar
-
-// RENDEROWANIE WARUNKOWE 
-// TYP !
-// w zależności od warunku wyświetlamy lub nie wyświetlamy element A
-// {jakasWartosc===drugaWartosc && <p>123</p>}
-// TYP 2 
-// w zależności od warunku renderujemy element A lub element B
-// jakasWartosc===drugaWartosc ? <p>123</p> : <p>abc</p>
-
-
-// Stwórz stan profilePhoto, otypuj got tak żeby móc przechowywać string lub undefined, wartość początkowa '/'
-// 2. Wywołaj useEffect, bd działać tylko na 1szym renderze
-// w uE:
-// 3. Stwóz referencję do storage (taka sama jak w poprzednim zad w ProfilePhotoFOrm)
-// 4. Wywołaj getDownloadUREL, funkcje przyjmuje jako argument referencję z pkt 3 i importuje się ją z firebase/storage
-// 5. Na getDownloadURL podepnij then i wywołaj w nim funkcję aktualizującą stan profilePhoto (pkt1) i wrzuć do tego stanu to, co zostalo ci zwrócone przez getDownoloadURL
-// 6. Dopisz catch
-// 7. W avatarze (l144) ustaw src na stan profilePhoto

@@ -9,7 +9,6 @@ import { ArticleObj } from '../../helpers/interfaces';
 const SearchPage = () => {
 
     const [keyword, setKeyword] = useState('');
-    // lub useState<string>('') -> generic type, zwykle 
 
     const [articles, setArticles] = useState([]);
     useEffect(()=>{
@@ -44,17 +43,3 @@ const SearchPage = () => {
 }
 
 export default SearchPage
-
-// 1. Stwórz stan articles, wartość początkowa []
-// 2. Wywołaj useEffect, ma reagować na zmianę stanu keyword
-// 3. W useEffect:
-// 3. Jeżeli keyword jest prawdziwy (istnieje, nie jest pusty) wywołaj axios get dla url'a: 
-// https://newsapi.org/v2/everything?
-// parametry: a) q, jest parametrem odpowiadającym za filtrowanie artykułow wg słowa kluczowego, q=jakasWartosc
-//            b) from , parametr odpowiadający za datę, od której mają bć ściągane artykuły np from=2022-10-01, format yyyy-mm-dd
-//            c) language, parametr odpowiadającym za jezyk pobieranych artykułów, language=en
-//            d) sortBy, w zależności od wartości sortuje artykuły w odpowiedni sposób, np "popularity"
-//            e) apiKey, podajemy klucz do api
-// 4. Na axios get przypnij then, w then wrzuć zwrócone przez axios artykuły (UWAGA: lista artykułów jest zagnieżdżona na 2 poziomach w zwróconym obiekcie)
-// 5. Na zmiennej stanowej (tak naprawdę liście) articles wywołaj metodę map,
-// W map zwracaj komponent Article przekazując props artykuł po którym aktualnie iterujesz
