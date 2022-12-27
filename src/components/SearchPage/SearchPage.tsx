@@ -4,12 +4,12 @@ import SearchForm from '../SearchForm/SearchForm';
 import { API_KEY } from '../../helpers/helpers';
 import { List } from '@mui/material';
 import Article from '../Article/Article';
-import { ArticleObj } from '../../helpers/interfaces';
+import { ArticleObj, AxiosGetArticlesResponse } from '../../helpers/interfaces';
 
 const SearchPage = () => {
 	const [keyword, setKeyword] = useState('');
 
-	const [articles, setArticles] = useState([]);
+	const [articles, setArticles] = useState<ArticleObj[]>([]);
 	useEffect(() => {
 		if (keyword) {
 			const today = new Date();
@@ -19,12 +19,12 @@ const SearchPage = () => {
 			const startDate = `${year}-${month < 10 ? `0${month}` : month}-${day}`;
 
 			axios
-				.get(
+				.get<AxiosGetArticlesResponse>(
 					`
             https://newsapi.org/v2/everything?q=${keyword}&from=${startDate}&language=en&sortBy=popularity&apiKey=${API_KEY}`
 				)
 				.then((response) => setArticles(response.data.articles))
-				.catch((err) => console.error(err.message));
+				.catch(() => alert("doesn't execute"));
 		}
 	}, [keyword]);
 

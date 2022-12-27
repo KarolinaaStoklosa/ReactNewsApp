@@ -12,7 +12,7 @@ const RegisterForm = () => {
 		if (data.password === data.password2) {
 			createUserWithEmailAndPassword(auth, data.email, data.password)
 				.then()
-				.catch((err) => console.log(err.message));
+				.catch(() => alert('Try again!'));
 		} else {
 			alert('Passwords are different!');
 		}

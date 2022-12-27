@@ -11,7 +11,7 @@ const LoginPage = () => {
 				variant="h6"
 				sx={{ fontWeight: '100', textAlign: 'center', my: '.5rem' }}
 			>
-				Don't have an account yet? Register now!
+				Don&apos;t have an account yet? Register now!
 			</Typography>
 			<Link to="/register" style={{ textDecoration: 'none' }}>
 				<Button variant="outlined" sx={{ display: 'block', mx: 'auto' }}>

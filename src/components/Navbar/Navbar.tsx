@@ -43,9 +43,8 @@ const Navbar = () => {
 			getDownloadURL(storageRef)
 				.then((url) => {
 					setProfilePhoto(url);
-					console.log('Profile photo set');
 				})
-				.catch((err) => setProfilePhoto(undefined));
+				.catch(() => setProfilePhoto(undefined));
 		}
 	}, [loggedIn]);
 

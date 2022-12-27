@@ -14,7 +14,7 @@ const ProfilePhotoForm = () => {
 			const storageRef = ref(storage, `/users/${auth.currentUser.uid}/images`);
 			uploadBytes(storageRef, photoFile)
 				.then()
-				.catch((err) => console.error(err.message));
+				.catch(() => alert("doesn't execute"));
 		}
 	};
 

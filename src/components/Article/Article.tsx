@@ -7,7 +7,7 @@ import { authContext } from '../../helpers/authContext';
 import { doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { auth, firestore } from '../../helpers/firebaseConfig';
 
-const Article: React.FC<ArticleProps> = ({ art }) => {
+const Article: React.FC<ArticleProps> = ({ art }: ArticleProps) => {
 	const loggedIn = useContext(authContext);
 	const [liked, setLiked] = useState(false);
 
@@ -18,18 +18,18 @@ const Article: React.FC<ArticleProps> = ({ art }) => {
 		color: liked ? 'red' : 'black',
 	};
 
-	const likeTheArticle = async () => {
+	const likeTheArticle = void (async () => {
 		if (loggedIn && auth.currentUser) {
 			await setDoc(doc(firestore, auth.currentUser.uid, art.title), art);
 			setLiked(true);
 		}
-	};
-	const unlikeTheArticle = async () => {
+	})();
+	const unlikeTheArticle = void (async () => {
 		if (loggedIn && auth.currentUser) {
 			await deleteDoc(doc(firestore, auth.currentUser.uid, art.title));
 			setLiked(false);
 		}
-	};
+	})();
 	return (
 		<ListItem>
 			<Card

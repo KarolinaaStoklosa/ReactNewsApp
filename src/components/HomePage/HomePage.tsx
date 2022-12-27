@@ -3,10 +3,10 @@ import { Typography, List } from '@mui/material';
 import { API_KEY } from '../../helpers/helpers';
 import axios from 'axios';
 import Article from '../Article/Article';
-import { ArticleObj } from '../../helpers/interfaces';
+import { ArticleObj, AxiosGetArticlesResponse } from '../../helpers/interfaces';
 
 const HomePage = () => {
-	const [todaysArticles, setTodaysArticles] = useState([]);
+	const [todaysArticles, setTodaysArticles] = useState<ArticleObj[]>([]);
 	useEffect(() => {
 		const today = new Date();
 		const day = today.getDate();
@@ -17,14 +17,14 @@ const HomePage = () => {
 			day - 1
 		}`;
 		axios
-			.get(
+			.get<AxiosGetArticlesResponse>(
 				`
         https://newsapi.org/v2/everything?q=world&from=${date}&language=en&sortBy=popularity&apiKey=${API_KEY}`
 			)
 			.then((response) => {
 				setTodaysArticles(response.data.articles);
 			})
-			.catch((err) => console.error(err.message));
+			.catch(() => alert("doesn't execute"));
 	}, []);
 
 	return (
@@ -34,7 +34,7 @@ const HomePage = () => {
 				align="center"
 				sx={{ my: '.8rem', fontSize: '2rem' }}
 			>
-				Today's hottest news:
+				Today&apos;s hottest news:
 			</Typography>
 			<List sx={{ width: '100%', alignContent: 'center' }}>
 				{todaysArticles.length !== 0 &&

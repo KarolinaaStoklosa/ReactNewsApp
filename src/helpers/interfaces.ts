@@ -4,6 +4,12 @@ export interface ArticleObj {
 	title: string;
 }
 
+export interface AxiosGetArticlesResponse {
+	status: string;
+	totalResults: number;
+	articles: ArticleObj[];
+}
+
 export interface ArticleProps {
 	art: ArticleObj;
 	key: string;

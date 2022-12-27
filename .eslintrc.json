@@ -59,6 +59,10 @@
             }
         ],
         "react-hooks/exhaustive-deps": "off",
+        "@typescript-eslint/no-misused-promises": [
+            "error",
+            {"checksVoidReturn": {"attributes": false}}
+        ],
         // Enforce the use of the shorthand syntax.
         "object-shorthand": "error",
         "no-console": "warn"

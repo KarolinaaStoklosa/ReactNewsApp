@@ -10,7 +10,7 @@ const LoginForm = () => {
 	const submitHandler = ({ email, password }: LoginFormData) => {
 		signInWithEmailAndPassword(auth, email, password)
 			.then()
-			.catch((err) => console.error(err.message));
+			.catch(() => alert('Try again!'));
 	};
 
 	return (
