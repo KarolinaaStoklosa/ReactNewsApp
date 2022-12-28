@@ -18,13 +18,13 @@ const Article: React.FC<ArticleProps> = ({ art }: ArticleProps) => {
 		color: liked ? 'red' : 'black',
 	};
 
-	const likeTheArticle = void (async () => {
+	const setArticleLiked = void (async () => {
 		if (loggedIn && auth.currentUser) {
 			await setDoc(doc(firestore, auth.currentUser.uid, art.title), art);
 			setLiked(true);
 		}
 	})();
-	const unlikeTheArticle = void (async () => {
+	const setArticleUnliked = void (async () => {
 		if (loggedIn && auth.currentUser) {
 			await deleteDoc(doc(firestore, auth.currentUser.uid, art.title));
 			setLiked(false);
@@ -49,9 +49,9 @@ const Article: React.FC<ArticleProps> = ({ art }: ArticleProps) => {
 				{loggedIn && (
 					<>
 						{liked ? (
-							<FavoriteIcon onClick={unlikeTheArticle} sx={iconStyle} />
+							<FavoriteIcon onClick={setArticleUnliked} sx={iconStyle} />
 						) : (
-							<FavoriteBorderIcon onClick={likeTheArticle} sx={iconStyle} />
+							<FavoriteBorderIcon onClick={setArticleLiked} sx={iconStyle} />
 						)}
 					</>
 				)}

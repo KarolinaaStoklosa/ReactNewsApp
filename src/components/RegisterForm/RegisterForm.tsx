@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, Typography, TextField, Button } from '@mui/material';
 import { auth } from '../../helpers/firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';

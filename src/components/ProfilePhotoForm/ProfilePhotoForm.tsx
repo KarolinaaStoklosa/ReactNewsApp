@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Card, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { ProfilePhotoFormData } from '../../helpers/interfaces';

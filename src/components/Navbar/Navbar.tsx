@@ -15,19 +15,13 @@ import { auth, storage } from '../../helpers/firebaseConfig';
 import { ref, getDownloadURL } from 'firebase/storage';
 import { authContext } from '../../helpers/authContext';
 
-const pages = ['Home', 'Search'];
-
 const Navbar = () => {
 	const loggedIn = useContext(authContext);
 
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorElNav(event.currentTarget);
-	};
-	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorElUser(event.currentTarget);
 	};
 
 	const handleCloseNavMenu = () => {
@@ -159,11 +153,7 @@ const Navbar = () => {
 							to={loggedIn ? '/user' : '/login'}
 							style={{ textDecoration: 'none' }}
 						>
-							{loggedIn && (
-								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-									<Avatar alt="Remy Sharp" src={profilePhoto} />
-								</IconButton>
-							)}
+							{loggedIn && <Avatar alt="Remy Sharp" src={profilePhoto} />}
 							{!loggedIn && (
 								<Button sx={{ my: 2, color: 'white', display: 'block' }}>
 									Log in
